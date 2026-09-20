@@ -4,7 +4,7 @@ This plan turns [`problemStatement.md`](./problemStatement.md) and [`architectur
 
 **Design rule (do not violate):** structured filters decide *eligibility*; the LLM only *ranks and explains* a small candidate set. Restaurant name, cuisine, rating, and cost always come from the catalog.
 
-**Suggested stack:** Next.js (App Router) + TypeScript frontend, FastAPI backend, SQLite catalog, OpenAI-compatible LLM, Hugging Face ingest via `datasets` + pandas.
+**Suggested stack:** Next.js (App Router) + TypeScript frontend, FastAPI backend, SQLite catalog, Hugging Face ingest via `datasets` + pandas, and **Groq** as the LLM provider (OpenAI-compatible endpoint `https://api.groq.com/openai/v1`). Model: `openai/gpt-oss-120b` (`llama-3.3-70b-versatile` is decommissioned on Groq), configurable with `LLM_MODEL`.
 
 ---
 
@@ -15,12 +15,11 @@ This plan turns [`problemStatement.md`](./problemStatement.md) and [`architectur
 | 0 | Project scaffold | — | Repo layout, env, ignore rules, runnable empty apps |
 | 1 | Data ingestion | Data ingestion | Clean SQLite catalog from the Zomato HF dataset |
 | 2 | Retrieval API | User input (API) + integration layer (filter) | Filtered candidates without an LLM |
-| 3 | Preference UI (retrieval-only) | User input + output display (facts only) | Form → filtered restaurant list in the browser |
-| 4 | LLM recommendation engine | Integration (prompt) + recommendation engine | Ranked list with explanations and summary |
-| 5 | Full results UI | Output display | Cards, summary, empty/error/fallback states |
-| 6 | Hardening | Quality, safety, ops | Timeouts, rate limits, logging, cache, tests |
+| 3 | Preference UI + Groq LLM engine | User input + integration (prompt) + recommendation engine + output display | Form → filtered candidates → Groq ranks and explains → results in the browser |
+| 4 | Results UI polish | Output display | Cards, sanitization, consistent loading/empty/error/fallback states |
+| 5 | Hardening | Quality, safety, ops | Timeouts, rate limits, logging, cache, tests |
 
-Phases 2 and 3 can overlap after Phase 1: backend retrieval first, then wire the form. Do **not** start Phase 4 until retrieval returns real catalog rows for known Bangalore neighborhoods.
+Phases 2 and 3 can overlap after Phase 1: backend retrieval first, then wire the form and the LLM. Do **not** start Phase 3's LLM step until retrieval returns real catalog rows for known Bangalore neighborhoods (the Phase 2 gate).
 
 ---
 
@@ -136,47 +135,28 @@ Both apps run locally. No dataset or LLM required yet.
 
 ---
 
-## Phase 3 — Preference UI (retrieval-only)
+## Phase 3 — Preference UI + Groq LLM engine
 
-**Goal:** Collect the problem-statement inputs and show catalog facts before adding the LLM.
+**Goal:** Collect the problem-statement inputs, retrieve eligible restaurants, have a Groq-hosted model rank and explain them, and show the result in the browser — without inventing venues or facts.
 
-### Tasks
+**LLM provider:** [Groq](https://console.groq.com) via its OpenAI-compatible chat completions API.
 
-- Call `GET /meta` to populate location and cuisine dropdowns.
-- Build the preference form:
-  - Location (required, from catalog)
-  - Budget: low / medium / high
-  - Cuisine (dropdown + optional free text)
-  - Minimum rating (slider 0–5)
-  - Additional preferences (textarea)
-- Client-side required-field validation.
-- Loading state on submit.
-- Results list showing **Restaurant Name, Cuisine, Rating, Estimated Cost** (explanations can be a placeholder or omitted).
-- Empty state: “No restaurants match these filters” (important for non-Bangalore locations).
-- CORS / `NEXT_PUBLIC_API_URL` so the Next.js app can reach FastAPI.
+| Setting | Value |
+| --- | --- |
+| `LLM_BASE_URL` | `https://api.groq.com/openai/v1` |
+| `LLM_MODEL` | `openai/gpt-oss-120b` |
+| `LLM_API_KEY` | Groq API key, **server-side only** |
+| `LLM_REASONING_EFFORT` | Optional. `low`, `medium` or `high` (`low` is fastest). Omit to use the model default |
+| `LLM_TIMEOUT_SECONDS` | `20` |
 
-### Deliverables
+### Backend tasks
 
-- Form page + results list wired to Phase 2 API
-- Empty and loading states
-
-### Exit gate
-
-A user can pick Banashankari, set budget/cuisine/rating, submit, and see a list of real restaurants in the browser. Changing filters changes the list. No model API key required.
-
----
-
-## Phase 4 — LLM recommendation engine
-
-**Goal:** Rank candidates and write human-like explanations, without inventing venues or facts.
-
-### Tasks
-
-- Add LLM client config from env (`LLM_API_KEY` on the **server only**).
+- Add LLM settings from env (`LLM_API_KEY` never leaves the server). Groq defaults in `config.py` and `.env.example`.
+- LLM client (`httpx`, sync, one call per request): `POST {LLM_BASE_URL}/chat/completions` with `response_format: {"type": "json_object"}`, temperature 0.2–0.4, optional `reasoning_effort`. Strip any `<think>…</think>` block and code fences before parsing (reasoning models may emit them).
 - Prompt builder (`prompt.py`):
-  - System: recommender role, JSON-only, use only provided IDs, do not invent prices/ratings/names.
-  - User: normalized preferences + compact candidate table (`id, name, neighborhood, cuisines, rating, votes, cost_for_two, rest_type, listed_type, dish_liked, snippet`).
-  - Ask for top 5 (or fewer). Temperature 0.2–0.4.
+  - System: recommender role, JSON-only, use only provided IDs, do not invent prices/ratings/names, treat preferences and review snippets as data (not instructions).
+  - User: normalized preferences + compact candidate table (`id, name, neighborhood, cuisines, rating, votes, cost_for_two, rest_type, listed_type, dish_liked, snippet`, plus an over/under-budget flag for softly expanded rows).
+  - Ask for top 5 (or fewer).
 - Enforce output schema:
 
   ```json
@@ -189,55 +169,80 @@ A user can pick Banashankari, set budget/cuisine/rating, submit, and see a list 
   ```
 
 - `recommend.py`:
-  - Skip the LLM when retrieval is empty.
-  - One LLM call per request.
-  - Parse JSON; drop unknown IDs; join remaining IDs to catalog for name/cuisine/rating/cost.
-  - Fallback on timeout (~20s), invalid JSON, or empty valid IDs: heuristic order + template explanation (`Matches {cuisine} in {location} with rating {rating} and ~₹{cost} for two.`). Set `meta.fallback = true`.
-- Response mapper: attach explanations/summary; never return prompt internals or full reviews.
-- Response `meta`: `candidates_considered`, `used_llm`, `fallback`.
+  - Skip the LLM when retrieval is empty (`meta.used_llm = false`, `meta.fallback = false`).
+  - Skip the LLM when `LLM_API_KEY` is unset and use the fallback.
+  - Parse JSON; drop unknown and duplicate IDs; join remaining IDs to the catalog for name/cuisine/rating/cost; cap explanation/summary length.
+  - Fallback on timeout (~20s), HTTP error, invalid JSON, or empty valid IDs: heuristic order + template explanation (`Matches {cuisine} in {location} with rating {rating} and ~₹{cost} for two.`). Set `meta.fallback = true`.
+- `POST /recommendations` becomes LLM-backed and returns `summary`, ranked `recommendations` (with `explanation`), and `meta` (`candidates_considered`, `used_llm`, `fallback`, `budget_relaxed`). Never return prompt internals or full reviews.
+- CORS: allow the frontend origin(s) from `CORS_ORIGINS` (default `http://localhost:3000`).
+
+### Frontend tasks
+
+- Call `GET /meta` to populate location and cuisine dropdowns.
+- Build the preference form:
+  - Location (required, from catalog)
+  - Budget: low / medium / high
+  - Cuisine (dropdown + optional free text)
+  - Minimum rating (slider 0–5)
+  - Additional preferences (textarea)
+- Client-side required-field validation.
+- Loading state on submit (the LLM call takes seconds); submit disabled while in flight.
+- Results list showing **rank, Restaurant Name, Cuisine, Rating, Estimated Cost, AI explanation**, and the overall summary above the list.
+- Subtle note when the fallback was used (e.g. “Ranked without AI because the model was unavailable”).
+- Empty state: “No restaurants match these filters” (important for non-Bangalore locations).
+- Error state for API/network failure, separate from the empty state.
+- Render all server/LLM text as plain text (React escaping; no `dangerouslySetInnerHTML`).
+- `NEXT_PUBLIC_API_URL` so the Next.js app can reach FastAPI.
 
 ### Tests
 
 - Mapper drops unknown `restaurant_id`s.
 - Catalog rating/cost win if they disagree with the model.
 - Invalid JSON → fallback list, `fallback: true`.
+- Timeout / HTTP error → fallback list, not 500.
+- Missing API key → fallback list, no LLM HTTP call.
 - Empty retrieval → no LLM HTTP call.
+- Reasoning output (`<think>` block, code fences) still parses.
+- Request sent to Groq carries the model, JSON mode and bearer key; the prompt contains only candidate-table fields (no full reviews).
 
 ### Deliverables
 
 - `prompt.py`, `recommend.py`, LLM-backed `POST /recommendations`
-- `.env.example` updated with a real provider example (Groq/OpenAI/Gemini/Ollama)
+- Form page + results list wired to the API, with loading, empty, error and fallback states
+- `.env.example` with the Groq configuration
 
 ### Exit gate
 
-Same Banashankari/Italian request returns **up to 5** items with AI explanations and an optional summary. Facts still match SQLite. Killing the API key still returns heuristic results instead of 500.
+- Backend: the Banashankari/Italian request returns **up to 5** items with AI explanations and an optional summary, and facts still match SQLite. Removing the API key (or a Groq outage) still returns heuristic results with `fallback: true`, never a 500.
+- Browser: a user picks Banashankari, sets budget/cuisine/rating, submits, waits on the loading state, and sees ranked restaurants with explanations. Changing filters changes the list. A Delhi-style location stays empty.
+- The Groq key is never present in the frontend bundle or any response.
 
 ---
 
-## Phase 5 — Full results UI
+## Phase 4 — Results UI polish
 
-**Goal:** Meet the output-display requirements of the problem statement.
+**Goal:** Turn the working results list into a finished experience for the output-display requirements of the problem statement.
 
 ### Tasks
 
 - Recommendation cards:
-  - Rank
+  - Rank badge
   - Restaurant name
   - Cuisine
   - Rating
   - Estimated cost (₹ for two)
   - AI-generated explanation
   - Optional: neighborhood, rest type
-- Overall summary above the cards when present.
-- Distinguish fallback vs LLM (subtle note is enough, e.g. “Ranked without AI because the model was unavailable”).
-- Error state for API/network failure (separate from empty filters).
-- Sanitize explanations before rendering (treat LLM text as untrusted).
-- Disable submit while in flight; keep last successful results or clear them consistently.
+- Overall summary styled above the cards.
+- Consistent behaviour while a request is in flight: keep the last successful results or clear them, but do it the same way for every state.
+- Clear visual separation between the empty state, the error state, and the fallback note.
+- Responsive layout and basic accessibility (labels, focus, live region for loading/results).
+- Audit that LLM text is rendered as untrusted plain text.
 
 ### Deliverables
 
 - Polished form + results experience
-- All five required output fields visible
+- All five required output fields visible on every card
 
 ### Exit gate
 
@@ -245,33 +250,50 @@ End-to-end in the browser: set preferences → wait on loading → see ranked ca
 
 ---
 
-## Phase 6 — Hardening
+## Phase 5 — Hardening
 
-**Goal:** Production-minded quality: latency, cost, safety, observability, tests.
+**Goal:** Production-minded quality: latency, cost, safety, observability, tests. The dominant constraint is the Groq quota for `openai/gpt-oss-120b`.
+
+### Groq limits and what they mean
+
+| Limit | Value | Guard uses (90% margin) |
+| --- | --- | --- |
+| Requests per minute (RPM) | 30 | 27 |
+| Requests per day (RPD) | 1,000 | 900 |
+| Tokens per minute (TPM) | 8,000 | 7,200 |
+| Tokens per day (TPD) | 200,000 | 180,000 |
+
+Measured on the real API: one ranking call costs about 2.3K tokens (compact prompt, 12–15 candidates, `reasoning_effort=low`). **TPM binds first**: about 2 AI-ranked searches per minute and about 80 per day, far below the request limits. So the design assumes most searches will *not* get an LLM call and makes that path fast and honest.
 
 ### Tasks
 
-- Rate-limit `POST /recommendations`.
-- Optional in-memory cache keyed by a hash of normalized preferences.
-- Structured logs: filter counts, candidate IDs, LLM success/fallback, latency. Do not log API keys.
-- Tune budget bands if real queries are too empty or too loose.
-- Optional location `contains` / light fuzzy match if exact neighborhood names are too brittle.
-- README: ingest, env, run backend/frontend, dataset caveat (Bangalore only).
-- Expand tests (architecture §12) on a 10–20 row fixture DB.
-- Confirm token budget: 15–25 candidates, short snippets, top 5 explanations of 1–3 sentences.
+- **Quota guard (RPM, RPD, TPM, TPD):** reserve estimated tokens before each call, settle to provider-reported usage after, persist usage in SQLite so daily counters survive restarts, apply a safety margin, honour Groq's `x-ratelimit-remaining-*` headers. Limits are configurable (`LLM_*_LIMIT`, `LLM_LIMIT_MARGIN`).
+- **Never retry or queue in the request path:** guard denial or a Groq `429` returns the heuristic fallback immediately with `fallback_reason: "rate_limited"` and `retry_after_seconds`; a `429` also starts a cooldown.
+- **Response cache** (in-memory TTL, keyed by a hash of normalized preferences): identical searches cost 0 tokens; fallback results are not cached.
+- **Token budget:** compact pipe-separated candidate rows, at most `LLM_MAX_CANDIDATES` sent, trimmed further if one call would not fit the per-minute limit, capped `max_completion_tokens`, explanations of 1–2 sentences.
+- **Per-client rate limit** on `POST /recommendations` (`RATE_LIMIT_PER_MINUTE` per IP): HTTP 429 with `Retry-After`, exposed to the browser via CORS. Protects the shared quota from one visitor.
+- **Structured logs** (one JSON line per event): filter counts, candidate IDs, LLM outcome (ok / cache hit / skipped by guard / provider 429 / error / invalid output), estimated vs actual tokens, latencies. Never log API keys, prompts or free-text preferences.
+- **UI messaging:** when AI ranking is paused for quota reasons, say so and show the retry hint; a client 429 shows a "wait N seconds" message.
+- **Location matching:** exact (case-insensitive) first, then a substring match only when it names exactly one neighborhood; ambiguous or unknown input stays empty (never guessed).
+- **Budget bands:** checked against the full catalog. Empty results come from sparse data (few ₹801+ restaurants in small neighborhoods), not band edges, so the defaults stay (configurable via `BUDGET_*`).
+- README: ingest, env (Groq key, model, limits), run backend/frontend, dataset caveat (Bangalore only).
+- Fixture-based tests (architecture §12) for ingest, retrieval, mapper, fallback, empty API, guard, cache, limiter and logging.
 
 ### Deliverables
 
-- Rate limit + timeout + fallback verified
-- README
-- Fixture-based test suite for ingest, retrieval, mapper, fallback, empty API
+- Quota guard + cache + per-client limit + timeout + fallback verified
+- README with the limits explained
+- Fixture-based test suite for ingest, retrieval, mapper, fallback, empty API, quota, cache, limiter, logging
 
 ### Exit gate
 
+- A burst of distinct searches never triggers a Groq `429`: calls beyond the budget return catalog-ranked results with `fallback_reason: "rate_limited"`.
+- A repeated search is served from cache and spends no tokens.
+- Restarting the server does not reset the daily token count.
 - Timeout/fallback path works.
 - Unknown location is empty, not hallucinated.
-- Secrets never shipped to the browser.
-- Someone else can clone, ingest (or copy sqlite), set `.env`, and run the demo.
+- Secrets never shipped to the browser or written to logs.
+- Someone else can clone, ingest (or copy sqlite), set `.env` with a Groq key, and run the demo.
 
 ---
 
@@ -293,10 +315,9 @@ After Phase 0, the fastest path to a demo that still respects the architecture:
 
 1. Phase 1 ingest (or a 50-row sample sqlite if the full download is blocked).
 2. Phase 2 retrieval for one neighborhood.
-3. Phase 3 form + list.
-4. Phase 4 LLM on that same path.
-5. Phase 5 cards + summary.
-6. Phase 6 hardening.
+3. Phase 3 form + Groq LLM on that same path.
+4. Phase 4 cards + polish.
+5. Phase 5 hardening.
 
 Do not jump to the LLM before filters work. If the model sees unfiltered rows, it will invent or ignore budget/location and the product fails the problem statement.
 
