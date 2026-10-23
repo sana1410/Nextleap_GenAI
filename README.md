@@ -2,6 +2,8 @@
 
 AI-powered restaurant recommendations: structured filters decide eligibility; the LLM only ranks and explains a small candidate set.
 
+**Live Demo:** [https://nextleapgenai-rbc5cysyqrm8ppuxqfonqv.streamlit.app/](https://nextleapgenai-rbc5cysyqrm8ppuxqfonqv.streamlit.app/)
+
 ## Prerequisites
 
 - Python 3.11+
