@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: bcp-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 2
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHONPATH
+        value: backend
+      - key: DATABASE_PATH
+        value: /data/restaurants.sqlite
+      - key: LLM_USAGE_DB
+        value: /data/llm_usage.sqlite
+      - key: LLM_API_KEY
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+    disk:
+      name: bcp-data
+      mountPath: /data
+      sizeGB: 1
+
+  - type: web
+    name: bcp-frontend
+    runtime: node
+    plan: free
+    buildCommand: cd frontend-v2 && npm ci && npm run build
+    startCommand: cd frontend-v2 && node .next/standalone/server.js
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
+      - key: PORT
+        value: "3000"
+      - key: HOSTNAME
+        value: "0.0.0.0"
+      - key: NODE_VERSION
+        value: "20"

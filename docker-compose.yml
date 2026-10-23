@@ -1,0 +1,43 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    env_file:
+      - .env
+    environment:
+      - DATABASE_PATH=data/processed/restaurants.sqlite
+      - LLM_USAGE_DB=data/processed/llm_usage.sqlite
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend-v2
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+  ingest:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    volumes:
+      - ./data:/app/data
+    command: ["python", "scripts/ingest_zomato.py"]
+    profiles:
+      - seed

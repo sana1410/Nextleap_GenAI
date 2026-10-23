@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"primary":"#ffb690","secondary-fixed":"#ffdcc5","surface-container":"#122131","secondary-container":"#d97722","on-error":"#690005","tertiary-fixed":"#c4e7ff","on-tertiary":"#00354a","background":"#051424","error-container":"#93000a","surface-tint":"#ffb690","inverse-surface":"#d4e4fa","surface-bright":"#2c3a4c","on-tertiary-fixed":"#001e2c","primary-fixed":"#ffdbca","outline":"#a78b7d","inverse-on-surface":"#233143","on-tertiary-fixed-variant":"#004c69","primary-fixed-dim":"#ffb690","outline-variant":"#584237","surface-container-highest":"#273647","primary-fixed-dim":"#ffb690","on-primary":"#552100","surface-variant":"#273647","surface":"#051424","on-secondary-fixed-variant":"#713700","on-surface-variant":"#e0c0b1","tertiary-container":"#00a6df","on-primary-fixed":"#341100","surface-container-low":"#0d1c2d","on-surface":"#d4e4fa","on-secondary":"#4f2500","on-tertiary-container":"#00374d","surface-container-high":"#1c2b3c","on-primary-fixed-variant":"#783200","on-primary-container":"#582200","primary-container":"#f97316","error":"#ffb4ab","surface-dim":"#051424","surface-container-lowest":"#010f1f","secondary":"#ffb783","on-secondary-container":"#451f00","tertiary":"#7bd0ff","tertiary-fixed-dim":"#7bd0ff","on-error-container":"#ffdad6","on-secondary-fixed":"#301400","secondary-fixed-dim":"#ffb783","inverse-primary":"#9d4300"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"gutter":"1rem","space-sm":"0.5rem","space-2xl":"3rem","gutter-lg":"2rem","space-xs":"0.25rem","space-md":"0.75rem","space-lg":"1.25rem","margin":"1rem","gutter-md":"1.5rem","space-xl":"2rem","margin-lg":"3rem","margin-md":"1.5rem"},"fontFamily":{"label-md":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"label-caps":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"headline-xl-mobile":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"]},"fontSize":{"label-md":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.025em","fontWeight":"600"}],"body-md":["0.875rem",{"lineHeight":"1.375rem","fontWeight":"400"}],"body-sm":["0.75rem",{"lineHeight":"1.125rem","fontWeight":"400"}],"label-lg":["0.875rem",{"lineHeight":"1.25rem","letterSpacing":"0.01em","fontWeight":"600"}],"label-caps":["0.6875rem",{"lineHeight":"0.875rem","letterSpacing":"0.06em","fontWeight":"700"}],"headline-lg":["2.25rem",{"lineHeight":"2.75rem","letterSpacing":"-0.02em","fontWeight":"700"}],"title-md":["1.125rem",{"lineHeight":"1.625rem","fontWeight":"600"}],"headline-md":["1.5rem",{"lineHeight":"2rem","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-lg-mobile":["1.75rem",{"lineHeight":"2.25rem","letterSpacing":"-0.015em","fontWeight":"700"}],"body-lg":["1rem",{"lineHeight":"1.625rem","fontWeight":"400"}],"headline-xl-mobile":["2rem",{"lineHeight":"2.5rem","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["1.25rem",{"lineHeight":"1.75rem","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-xl":["3rem",{"lineHeight":"3.5rem","letterSpacing":"-0.025em","fontWeight":"700"}]}}}}</script></head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="h-20 w-full px-gutter md:px-gutter-md lg:px-gutter-lg max-w-6xl mx-auto flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-0"><div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center flex-shrink-0 shadow-[0_4px_12px_rgba(0,0,0,0.25)]"><span class="material-symbols-outlined text-primary-container text-[22px]">local_fire_department</span></div><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-sm flex-wrap"><span class="font-title-md text-title-md text-on-surface font-bold tracking-tight truncate">Bangalore Culinary Pulse</span><span class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-container/20 text-primary font-label-caps text-label-caps uppercase tracking-wider">AI Discovery</span></div><span class="font-body-sm text-body-sm text-on-surface-variant truncate">Curated AI Dining Explorer</span></div></div><div class="flex items-center gap-space-lg flex-shrink-0"><nav class="hidden md:flex items-center gap-space-md" data-active-classes="text-primary font-semibold"><a class="text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-colors py-1 px-2" data-path="discovery" href="#">Discovery</a><a class="text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-colors py-1 px-2" data-path="curated-collections" href="#">Collections</a><a class="text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-colors py-1 px-2" data-path="components-documentation" href="#">Docs &amp; Showcase</a></nav><div class="hidden sm:flex items-center gap-2 px-space-md py-1.5 rounded-full bg-surface-container-low"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span class="font-label-caps text-label-caps text-on-surface-variant">Catalog synced • Bangalore, IN</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 flex-1 bg-surface"><div class="max-w-2xl mx-auto px-gutter py-space-xl"><div class="flex flex-col w-full">
+<div class="w-full max-w-4xl mx-auto space-y-space-2xl">
+<!-- Header Summary Block -->
+<section class="relative bg-surface-container-high rounded-xl p-gutter md:p-gutter-md overflow-hidden shadow-lg">
+<div class="absolute -right-16 -top-16 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full bg-secondary-container/20 text-primary font-label-caps text-label-caps uppercase tracking-wider">
+<span class="material-symbols-outlined text-primary text-[14px]">token</span>
+            Design System Spec v2.4
+          </span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Night-Out Bangalore Engine</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Component Architecture</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+          Modular design primitives built for high-contrast nocturnal food intelligence. Strict chromatic depth, deliberate amber accents, tactile feedback, and accessible typographic hierarchy.
+        </p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm mt-space-md pt-space-md bg-surface-container-lowest/60 rounded-xl p-space-md">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Base Layer</span>
+<span class="font-title-md text-title-md text-primary font-bold">#051424</span>
+<span class="font-body-sm text-body-sm text-outline">Surface Dark</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Accent Core</span>
+<span class="font-title-md text-title-md text-primary font-bold">#F97316</span>
+<span class="font-body-sm text-body-sm text-outline">Ember Orange</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Grid Base</span>
+<span class="font-title-md text-title-md text-on-surface font-bold">8px Increments</span>
+<span class="font-body-sm text-body-sm text-outline">Fluid System</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Typeface</span>
+<span class="font-title-md text-title-md text-on-surface font-bold">Jakarta Sans</span>
+<span class="font-body-sm text-body-sm text-outline">400 / 600 / 700</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 1: Text Inputs & Autocomplete -->
+<section class="space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">01. Form Inputs &amp; Autocomplete</h2>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Input State Primitives</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Input States Column -->
+<div class="bg-surface-container rounded-xl p-space-lg space-y-space-md shadow-sm">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider block">Standard States</span>
+<!-- Default State -->
+<div class="space-y-space-xs">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center justify-between">
+<span>Default Query Field</span>
+<code class="font-body-sm text-[11px] text-outline">state: idle</code>
+</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low text-on-surface placeholder:text-outline font-body-md text-body-md px-space-md py-space-sm rounded-lg outline-none transition-all" placeholder="e.g. Craft cider and woodfired pizza" type="text"/>
+</div>
+</div>
+<!-- Focused State Emulation -->
+<div class="space-y-space-xs">
+<label class="font-label-md text-label-md text-on-surface flex items-center justify-between">
+<span>Active Focused Field</span>
+<code class="font-body-sm text-[11px] text-primary">state: focus-visible</code>
+</label>
+<div class="relative bg-surface-container-low rounded-lg p-[1px] shadow-[0_0_0_2px_rgba(249,115,22,0.9)]">
+<input class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-space-md py-space-sm rounded-lg outline-none" type="text" value="Third wave coffee in Indiranagar"/>
+</div>
+</div>
+<!-- Inline Error State -->
+<div class="space-y-space-xs">
+<label class="font-label-md text-label-md text-error flex items-center justify-between">
+<span>Location Radius Invalid</span>
+<code class="font-body-sm text-[11px] text-error">state: invalid-error</code>
+</label>
+<div class="relative bg-error-container/20 rounded-lg p-[1px] shadow-[0_0_0_1px_rgba(255,180,171,0.6)]">
+<input class="w-full bg-surface-container-low text-error font-body-md text-body-md px-space-md py-space-sm rounded-lg outline-none" type="text" value="380 km from Koramangala"/>
+</div>
+<p class="font-body-sm text-body-sm text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">error</span>
+              Radius must be within Bangalore Metro boundaries (max 35 km).
+            </p>
+</div>
+</div>
+<!-- Autocomplete Dropdown Preview -->
+<div class="bg-surface-container rounded-xl p-space-lg space-y-space-md shadow-sm">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider block">Interactive Autocomplete Overlay</span>
+<div class="space-y-space-xs relative">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center justify-between">
+<span>Search Locality / Micro-market</span>
+<span class="font-label-caps text-label-caps text-tertiary">Live Search</span>
+</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-space-md py-space-sm pl-9 rounded-lg outline-none shadow-[0_0_0_1px_rgba(249,115,22,0.6)]" type="text" value="Indira"/>
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-primary text-[18px]">search</span>
+</div>
+<!-- Floating Suggestions Menu (Simulated active overlay) -->
+<div class="w-full bg-surface-container-high rounded-xl mt-space-xs p-space-xs shadow-2xl space-y-1">
+<div class="px-space-md py-space-xs rounded-lg bg-surface-container-highest flex items-center justify-between cursor-pointer">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]">location_on</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">Indiranagar <span class="text-on-surface-variant font-normal">100 Feet Rd</span></span>
+</div>
+<span class="font-label-caps text-label-caps text-primary-container px-1.5 py-0.5 rounded bg-primary-container/10">34 Spots</span>
+</div>
+<div class="px-space-md py-space-xs rounded-lg hover:bg-surface-container-highest flex items-center justify-between cursor-pointer transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[16px]">location_on</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Indiranagar <span class="text-outline">HAL 2nd Stage</span></span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">19 Spots</span>
+</div>
+<div class="px-space-md py-space-xs rounded-lg hover:bg-surface-container-highest flex items-center justify-between cursor-pointer transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[16px]">location_on</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Indira Canteen <span class="text-outline">Civic Cluster</span></span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">2 Spots</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: Complex Selectors & Sliders -->
+<section class="space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">02. Segmented Selectors, Combos &amp; Live Slider</h2>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Discrete &amp; Continuous Inputs</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Segmented Button Group (Budget) -->
+<div class="bg-surface-container rounded-xl p-space-lg space-y-space-md shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider">3-Tier Budget Segmenter</span>
+<span class="font-body-sm text-body-sm text-outline">Single select</span>
+</div>
+<div class="space-y-space-sm">
+<label class="font-label-md text-label-md text-on-surface">Dining Intensity Tier</label>
+<div class="bg-surface-container-low p-1 rounded-xl flex items-center gap-1" id="budgetSegmenter">
+<button class="budget-btn flex-1 py-space-sm px-space-xs rounded-lg text-center transition-all bg-transparent text-on-surface-variant hover:text-on-surface" onclick="selectBudget(this, 'Low', '₹ Under 800')" type="button">
+<span class="font-label-md text-label-md block">Low</span>
+<span class="font-label-caps text-[10px] text-outline block">&lt; ₹800</span>
+</button>
+<button class="budget-btn flex-1 py-space-sm px-space-xs rounded-lg text-center transition-all bg-primary-container text-on-primary-container font-semibold shadow-md" onclick="selectBudget(this, 'Medium', '₹₹ 800–1800')" type="button">
+<span class="font-label-md text-label-md block font-bold">Medium</span>
+<span class="font-label-caps text-[10px] text-on-primary-container/80 block">₹800–1.8k</span>
+</button>
+<button class="budget-btn flex-1 py-space-sm px-space-xs rounded-lg text-center transition-all bg-transparent text-on-surface-variant hover:text-on-surface" onclick="selectBudget(this, 'High', '₹₹₹ 1800+')" type="button">
+<span class="font-label-md text-label-md block">High</span>
+<span class="font-label-caps text-[10px] text-outline block">₹1.8k+</span>
+</button>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm px-1 text-on-surface-variant">
+<span>Selected Scope:</span>
+<span class="font-semibold text-primary" id="budgetHint">₹₹ 800–1800 for two</span>
+</div>
+</div>
+<!-- Select + Text Dual Combo Field -->
+<div class="space-y-space-xs pt-space-xs">
+<label class="font-label-md text-label-md text-on-surface">Cuisine + Dish Combo Input</label>
+<div class="bg-surface-container-low rounded-xl flex flex-col sm:flex-row items-stretch overflow-hidden shadow-inner">
+<div class="sm:w-2/5 p-space-xs flex items-center bg-surface-container-high/40">
+<select class="w-full bg-transparent text-primary font-label-md text-label-md outline-none cursor-pointer px-space-xs py-1">
+<option class="bg-surface-container text-on-surface">Coastal Karnataka</option>
+<option class="bg-surface-container text-on-surface">Third-Wave Coffee</option>
+<option class="bg-surface-container text-on-surface">Craft Breweries</option>
+<option class="bg-surface-container text-on-surface">Pan-Asian</option>
+</select>
+</div>
+<div class="flex-1 p-space-xs flex items-center">
+<input class="w-full bg-transparent px-space-sm py-1 font-body-md text-body-md text-on-surface placeholder:text-outline outline-none" placeholder="e.g. Ghee roast or pour-over" type="text"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Slider with Live Value & Textarea with Counter -->
+<div class="bg-surface-container rounded-xl p-space-lg space-y-space-md shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider">Continuous Range &amp; Textarea</span>
+<span class="font-body-sm text-body-sm text-outline">Realtime sync</span>
+</div>
+<!-- Live Rating Slider -->
+<div class="space-y-space-sm">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface">Minimum Zomato/Google Rating</label>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-caps text-label-caps font-bold" id="ratingBadge">
+                ★ 4.2
+              </span>
+</div>
+<div class="relative py-2">
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container" id="scoreSlider" max="5" min="0" oninput="updateSlider(this.value)" step="0.1" type="range" value="4.2"/>
+</div>
+<div class="flex justify-between font-label-caps text-label-caps text-outline">
+<span>Any Rating (0.0)</span>
+<span>Exceptional (4.8+)</span>
+</div>
+</div>
+<!-- Textarea with Live Character Counter -->
+<div class="space-y-space-xs pt-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface">Dietary Nuances &amp; Vibe Requests</label>
+<span class="font-label-caps text-label-caps text-outline" id="charCounter">94 / 280</span>
+</div>
+<div class="relative bg-surface-container-low rounded-xl p-space-sm">
+<textarea class="w-full bg-transparent text-on-surface font-body-md text-body-md placeholder:text-outline outline-none resize-none leading-relaxed" id="sampleNotes" maxlength="280" oninput="updateCharCount(this)" rows="3">Outdoor courtyard, dog-friendly seating preferred, low acoustic reverberation for conversation.</textarea>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: Action Buttons System -->
+<section class="space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">03. Button Hierarchy</h2>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Interactive Triggers</span>
+</div>
+<div class="bg-surface-container rounded-xl p-space-lg shadow-sm">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Primary CTA Button -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-caps text-label-caps text-outline uppercase">Primary Accent CTA</span>
+<button class="w-full py-space-sm px-space-md rounded-xl bg-primary-container text-on-primary-container font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 hover:bg-secondary-container transition-all active:scale-[0.98] shadow-md" type="button">
+<span class="material-symbols-outlined text-[20px]">explore</span>
+<span>Synthesize Spots</span>
+</button>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Primary action for query dispatch.</span>
+</div>
+<!-- Loading / Disabled Button -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-caps text-label-caps text-outline uppercase">Loading / Processing</span>
+<button class="w-full py-space-sm px-space-md rounded-xl bg-primary-container/40 text-on-primary font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 cursor-not-allowed" disabled="" type="button">
+<svg class="animate-spin h-5 w-5 text-on-primary" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+<path class="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"></path>
+</svg>
+<span>Ranking Curations...</span>
+</button>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Prevents double form submission.</span>
+</div>
+<!-- Secondary / Outline Button -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-caps text-label-caps text-outline uppercase">Secondary Slate Pill</span>
+<button class="w-full py-space-sm px-space-md rounded-xl bg-surface-container-high text-on-surface hover:bg-surface-bright font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 transition-all active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+<span>Adjust Criteria</span>
+</button>
+<span class="font-body-sm text-body-sm text-on-surface-variant">High-visibility alternative path.</span>
+</div>
+<!-- Ghost / Subtle Button -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-caps text-label-caps text-outline uppercase">Ghost / Subtle Action</span>
+<button class="w-full py-space-sm px-space-md rounded-xl text-primary hover:bg-surface-container-low font-label-lg text-label-lg font-semibold flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+<span>Clear Selections</span>
+</button>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Low visual weight utility trigger.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: Badges, Pills & Metadata Chips -->
+<section class="space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">04. Badges, Pills &amp; Taxonomic Chips</h2>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Data Labels</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Status Badges & Priority Pills -->
+<div class="bg-surface-container rounded-xl p-space-lg space-y-space-md shadow-sm">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider block">Status Badges</span>
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- AI Ranked Badge -->
+<div class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full bg-primary-container text-on-primary-container font-label-caps text-label-caps uppercase font-bold shadow-sm">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+<span>AI Ranked #1</span>
+</div>
+<!-- Catalog Ranking Warning Pill -->
+<div class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full bg-secondary-container/20 text-secondary-fixed font-label-caps text-label-caps uppercase font-semibold">
+<span class="material-symbols-outlined text-[14px]">history</span>
+<span>Catalog Default</span>
+</div>
+<!-- Live Availability Pill -->
+<div class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full bg-surface-container-highest text-tertiary font-label-caps text-label-caps uppercase font-semibold">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span>Live Walk-in</span>
+</div>
+<!-- Closed / Unavailable Pill -->
+<div class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full bg-error-container/30 text-error font-label-caps text-label-caps uppercase font-semibold">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+<span>Opens 7:00 PM</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Pills leverage semantic tint pairing without harsh boundary strokes to avoid distracting from primary imagery.
+          </p>
+</div>
+<!-- Metadata Chips / Tags -->
+<div class="bg-surface-container rounded-xl p-space-lg space-y-space-md shadow-sm">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider block">Taxonomy &amp; Metadata Chips</span>
+<div class="flex flex-wrap items-center gap-2">
+<!-- Green Rating Chip (4.5+) -->
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-container-high text-tertiary font-label-md text-label-md">
+<span class="material-symbols-outlined text-tertiary text-[14px]">star</span>
+<span>4.7 (Top 3%)</span>
+</div>
+<!-- Amber Rating Chip (3.5 - 4.4) -->
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-container-high text-secondary-fixed font-label-md text-label-md">
+<span class="material-symbols-outlined text-secondary text-[14px]">star_half</span>
+<span>4.1 Rating</span>
+</div>
+<!-- Gray Rating Chip (<3.5) -->
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-container-high text-outline font-label-md text-label-md">
+<span class="material-symbols-outlined text-outline text-[14px]">star</span>
+<span>3.2 Rating</span>
+</div>
+<!-- Pricing Chip -->
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-primary text-[14px]">payments</span>
+<span>₹1,400 for two</span>
+</div>
+<!-- Location Chip -->
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-primary text-[14px]">near_me</span>
+<span>Indiranagar</span>
+</div>
+<!-- Venue Category Chip -->
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-secondary text-[14px]">sports_bar</span>
+<span>Craft Microbrewery</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Categorical chips organize venue highlights with tight horizontal density.
+          </p>
+</div>
+</div>
+</section>
+<!-- SECTION 5: Restaurant Cards Comparison -->
+<section class="space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">05. Editorial Restaurant Cards</h2>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Card Hierarchy Showcase</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Standard Recommendation Card -->
+<div class="bg-surface-container rounded-xl overflow-hidden shadow-md flex flex-col justify-between">
+<div class="relative w-full h-44 bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="Warm atmospheric interior of a contemporary Bangalore gastropub with hanging filament lights, dark charcoal walls, lush tropical indoor plants, and polished wooden bistro tables with artisanal plates." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJqO4Pp8zf595QhRIuS9Z2Tx3_toMJQG5ZtWo5s9S9XJ3_QQ79zyjq4FFrlZS0OgxN-a9NwNotbyqkRn6-TG_8W3OE7XHKX9Bmpr5psYLzMFmsRjWvEAFVvypXTJ9OLH8Tz8OVptMZVKza2b9MbBTfQoq_aaWY23h2tSDtN-9pIHHgjhzTb1Z9SBiH7D1QCb8viQBbxq8V28PS-F0HzxXJdnfK8FVco42R-1MaKpMgEEjxp0Mty6X_"/>
+<div class="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high/90 backdrop-blur-md text-on-surface font-label-caps text-label-caps">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>Curated Selection</span>
+</div>
+<div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-surface-container/80 backdrop-blur-md flex items-center justify-center text-on-surface hover:text-primary cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+</div>
+</div>
+<div class="p-space-lg flex-1 flex flex-col justify-between gap-space-md">
+<div>
+<div class="flex items-baseline justify-between gap-2">
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Toit Brewpub</h3>
+<span class="font-label-caps text-label-caps text-tertiary">★ 4.6</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">100 Feet Rd, Indiranagar • Craft Beer, Continental</p>
+</div>
+<!-- Inset Editorial Callout -->
+<div class="bg-surface-container-low p-space-md rounded-lg space-y-1">
+<div class="flex items-center gap-1 text-primary font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[14px]">psychology</span>
+<span>Editorial Match</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">
+                “Consistent wheat ales with dependable woodfired sourdough crusts. High-energy evening volume.”
+              </p>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold">₹1,800 for two</span>
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container-high text-primary hover:bg-surface-bright font-label-md text-label-md font-semibold transition-colors" type="button">
+                View Intel
+              </button>
+</div>
+</div>
+</div>
+<!-- First-Ranked Featured Card (Accent Ring + Highlight) -->
+<div class="relative bg-surface-container rounded-xl overflow-hidden shadow-2xl flex flex-col justify-between shadow-[0_0_0_2px_rgba(249,115,22,0.8)]">
+<div class="relative w-full h-44 bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="Chic Bangalore cocktail sanctuary with dimly lit teak bar counters, warm amber backlighting illuminating glass spirit bottles, bespoke coupes filled with smoked cocktail infusions, and deep navy velvet banquettes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlxERO-IPnYTn_zt_UeHIRcBHXruwXLcGsM3R_oMPB7CHCYdjQ7sqWyRtSe-S-3BHdRFNNHlBvqNsckxDHKfCAE3azkVtwPfQb4dhc5hr6qIsUBhfng-ZLA7g9ohRl4fEScVtfRiZooVKuVyBlATvnxiNpTiQqnK18iuEA1Pa8DUQ60AjmFDYb7z0vKHJK-Dyu1d-hDnkGWQgB1ECwZ_NltUBo8Oj59B5hidpYlnD_SpWOLmu5VW-y"/>
+<!-- Number 1 AI Badge -->
+<div class="absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-container text-on-primary-container font-label-caps text-label-caps font-bold shadow-lg">
+<span class="material-symbols-outlined text-[14px]">award_star</span>
+<span>Top AI Recommendation</span>
+</div>
+<!-- Rank Circular Indicator -->
+<div class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-headline-sm text-headline-sm font-bold shadow-lg">
+              #1
+            </div>
+</div>
+<div class="p-space-lg flex-1 flex flex-col justify-between gap-space-md">
+<div>
+<div class="flex items-baseline justify-between gap-2">
+<div class="flex items-center gap-2">
+<h3 class="font-title-md text-title-md text-on-surface font-bold">The Library Bar &amp; Teak Room</h3>
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+</div>
+<span class="font-label-caps text-label-caps text-primary font-bold">★ 4.8</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Residency Road • Neo-Indian Mixology &amp; Small Plates</p>
+</div>
+<!-- 'Why It Fits' Editorial Callout -->
+<div class="bg-surface-container-highest/60 p-space-md rounded-lg space-y-1">
+<div class="flex items-center gap-1.5 text-primary font-label-caps text-label-caps font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+<span>Why It Fits Your Query</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">
+                “Exact match for low-reverberation courtyard seating with nuanced Kokum-infused botanical cordials and unhurried service.”
+              </p>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-label-md text-label-md text-primary font-bold">₹2,400 for two</span>
+<button class="px-space-md py-1.5 rounded-lg bg-primary-container text-on-primary-container hover:bg-secondary-container font-label-md text-label-md font-bold transition-all shadow-md" type="button">
+                Reserve Table
+              </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 6: Notice & Callout Banners -->
+<section class="space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">06. Notice &amp; Context Banners</h2>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Editorial Alerting</span>
+</div>
+<div class="space-y-space-sm">
+<!-- Quoted AI Summary Callout -->
+<div class="bg-surface-container rounded-xl p-space-md flex items-start gap-space-md shadow-sm">
+<div class="w-8 h-8 rounded-lg bg-primary-container/20 text-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">format_quote</span>
+</div>
+<div class="flex-1 space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider font-bold">AI Synthesis Engine</span>
+<span class="font-label-caps text-label-caps text-outline">Processed 142 reviews</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+              Synthesizing Indiranagar coffee houses: filter roast profiles lean heavy towards Arabica-Robusta 80/20 blends. Best acoustic tranquility occurs Tuesday–Thursday before 11:30 AM.
+            </p>
+</div>
+</div>
+<!-- Amber Capacity Alert Notice -->
+<div class="bg-surface-container rounded-xl p-space-md flex items-start gap-space-md shadow-sm">
+<div class="w-8 h-8 rounded-lg bg-secondary-container/20 text-secondary-fixed flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">weekend</span>
+</div>
+<div class="flex-1 space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-secondary-fixed uppercase tracking-wider font-bold">Capacity &amp; Waitlist Alert</span>
+<span class="font-label-caps text-label-caps text-secondary">Weekend Peak</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Koramangala microbreweries report average 45-minute table waits past 8:00 PM on Friday evenings. Direct table reservation is recommended.
+            </p>
+</div>
+</div>
+<!-- Neutral Budget Threshold Expansion Notice -->
+<div class="bg-surface-container rounded-xl p-space-md flex items-start gap-space-md shadow-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest text-tertiary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">info</span>
+</div>
+<div class="flex-1 space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-tertiary uppercase tracking-wider font-bold">Search Scope Expansion</span>
+<span class="font-label-caps text-label-caps text-outline">Tip</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Expanding your budget parameter by +₹300 for two unlocks 14 additional chef-driven coastal seafood establishments in Richmond Town and Lavelle Road.
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 7: System State Panels -->
+<section class="space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">07. System State Panels</h2>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Loading, Empty &amp; Fallbacks</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Skeleton Card Loader -->
+<div class="bg-surface-container rounded-xl p-space-md space-y-space-md shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-primary uppercase">Skeleton Loader</span>
+<span class="font-label-caps text-label-caps text-outline">Pulse</span>
+</div>
+<div class="animate-pulse space-y-space-sm">
+<div class="h-32 bg-surface-container-high rounded-lg w-full"></div>
+<div class="h-4 bg-surface-container-high rounded w-3/4"></div>
+<div class="space-y-2">
+<div class="h-3 bg-surface-container-highest rounded w-full"></div>
+<div class="h-3 bg-surface-container-highest rounded w-5/6"></div>
+</div>
+<div class="flex justify-between items-center pt-2">
+<div class="h-5 bg-surface-container-high rounded w-16"></div>
+<div class="h-7 bg-surface-container-high rounded w-20"></div>
+</div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Low-contrast shimmer indicates ongoing vector similarity retrieval.</span>
+</div>
+<!-- Empty State Panel -->
+<div class="bg-surface-container rounded-xl p-space-lg flex flex-col items-center text-center justify-center space-y-space-sm shadow-sm">
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[24px]">search_off</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface font-semibold">No Venues Matched</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Zero dining venues in Whitefield satisfied your combination of "Natural Wine" + "Quiet Ambiance".
+            </p>
+</div>
+<button class="mt-space-xs px-space-md py-1.5 rounded-lg bg-surface-container-high text-primary hover:bg-surface-bright font-label-md text-label-md font-semibold transition-colors" type="button">
+            Reset Filter Radius
+          </button>
+</div>
+<!-- Error State Panel -->
+<div class="bg-surface-container rounded-xl p-space-lg flex flex-col items-center text-center justify-center space-y-space-sm shadow-sm bg-error-container/10">
+<div class="w-12 h-12 rounded-full bg-error-container/30 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[24px]">cloud_off</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-error font-semibold">Inference Timeout</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              The culinary curation index timed out while synthesizing live review sentiment.
+            </p>
+</div>
+<button class="mt-space-xs px-space-md py-1.5 rounded-lg bg-error-container text-on-error font-label-md text-label-md font-bold transition-transform active:scale-95" type="button">
+            Retry Computation
+          </button>
+</div>
+</div>
+</section>
+<!-- Footer System Metrology Guide -->
+<section class="bg-surface-container-low rounded-xl p-space-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div class="space-y-1">
+<h4 class="font-label-lg text-label-lg text-on-surface font-bold">Bangalore Design System Token Manifest</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">All components conform to high-contrast WCAG 2.1 AAA night legibility standards.</p>
+</div>
+<div class="flex items-center gap-space-md font-label-caps text-label-caps text-on-surface-variant">
+<span>CSS Engine: Tailwind v3</span>
+<span>•</span>
+<span>Palette: Twilight &amp; Ember</span>
+</div>
+</section>
+</div>
+</div>
+<script>
+  function selectBudget(element, tier, hintText) {
+    const parent = document.getElementById('budgetSegmenter');
+    const buttons = parent.querySelectorAll('.budget-btn');
+    buttons.forEach(btn => {
+      btn.className = 'budget-btn flex-1 py-space-sm px-space-xs rounded-lg text-center transition-all bg-transparent text-on-surface-variant hover:text-on-surface';
+      const spans = btn.querySelectorAll('span');
+      if (spans[0]) spans[0].className = 'font-label-md text-label-md block';
+      if (spans[1]) spans[1].className = 'font-label-caps text-[10px] text-outline block';
+    });
+    
+    element.className = 'budget-btn flex-1 py-space-sm px-space-xs rounded-lg text-center transition-all bg-primary-container text-on-primary-container font-semibold shadow-md';
+    const activeSpans = element.querySelectorAll('span');
+    if (activeSpans[0]) activeSpans[0].className = 'font-label-md text-label-md block font-bold';
+    if (activeSpans[1]) activeSpans[1].className = 'font-label-caps text-[10px] text-on-primary-container/80 block';
+
+    document.getElementById('budgetHint').textContent = hintText + ' for two';
+  }
+
+  function updateSlider(val) {
+    const formatted = parseFloat(val).toFixed(1);
+    const badge = document.getElementById('ratingBadge');
+    badge.textContent = '★ ' + formatted;
+    
+    if (val >= 4.5) {
+      badge.className = 'inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-caps text-label-caps font-bold';
+    } else if (val >= 3.5) {
+      badge.className = 'inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-caps text-label-caps font-bold';
+    } else {
+      badge.className = 'inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-caps text-label-caps font-bold';
+    }
+  }
+
+  function updateCharCount(textarea) {
+    const len = textarea.value.length;
+    const max = textarea.getAttribute('maxlength') || 280;
+    const counter = document.getElementById('charCounter');
+    counter.textContent = len + ' / ' + max;
+    if (len >= 260) {
+      counter.className = 'font-label-caps text-label-caps text-error font-bold';
+    } else {
+      counter.className = 'font-label-caps text-label-caps text-outline';
+    }
+  }
+</script></div></main><footer class="w-full bg-surface-container-lowest mt-auto"><div class="max-w-2xl mx-auto px-gutter py-space-xl flex flex-col sm:flex-row items-center justify-between gap-space-md"><div class="flex flex-col items-center sm:items-start gap-space-xs"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">restaurant</span><span class="font-label-lg text-label-lg text-on-surface font-semibold">Bangalore Culinary Pulse</span></div><p class="font-body-sm text-body-sm text-on-surface-variant text-center sm:text-left">AI-synthesized dining intelligence for Indiranagar, Koramangala &amp; beyond.</p></div><div class="flex items-center gap-space-lg"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="components-documentation" href="#">Components &amp; Documentation</a></div></div></footer></body></html>
