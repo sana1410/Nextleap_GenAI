@@ -164,7 +164,7 @@ The simplest deployment path: a single Streamlit app that embeds all backend log
 | File | Purpose |
 |------|---------|
 | `streamlit_app.py` | All-in-one UI + backend logic |
-| `requirements-streamlit.txt` | Minimal deps for Streamlit Cloud |
+| `requirements.txt` | Minimal deps for Streamlit Cloud |
 
 ### Deploy Steps
 
@@ -181,7 +181,7 @@ The simplest deployment path: a single Streamlit app that embeds all backend log
    - **Repository**: `sana1410/Nextleap_GenAI`
    - **Branch**: `main`
    - **Main file path**: `streamlit_app.py`
-   - **Requirements file**: `requirements-streamlit.txt`
+   - **Requirements file**: `requirements.txt`
 
 4. Add secrets via the Streamlit Cloud dashboard (Settings → Secrets):
    ```toml
@@ -194,7 +194,7 @@ The simplest deployment path: a single Streamlit app that embeds all backend log
 ### Run Locally
 
 ```bash
-pip install -r requirements-streamlit.txt
+pip install -r requirements.txt
 streamlit run streamlit_app.py
 ```
 
