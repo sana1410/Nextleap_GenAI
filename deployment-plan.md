@@ -138,3 +138,70 @@ docker compose down
 - [ ] Database seeded with `ingest_zomato.py`
 - [ ] Health check passes: `GET /health` returns `{"status":"ok"}`
 - [ ] Frontend loads and shows neighborhood/cuisine dropdowns from `/meta`
+
+---
+
+## Streamlit Cloud Deployment (Recommended)
+
+The simplest deployment path: a single Streamlit app that embeds all backend logic.
+
+### Architecture
+
+```
+                   ┌──────────────────────────┐
+   Browser ──────► │   Streamlit Cloud        │
+                   │   streamlit_app.py        │
+                   │   (imports backend/app/)   │
+                   │   + restaurants.sqlite     │
+                   └────────────┬──────────────┘
+                                │
+                                ▼
+                          Groq API (external)
+```
+
+### Files
+
+| File | Purpose |
+|------|---------|
+| `streamlit_app.py` | All-in-one UI + backend logic |
+| `requirements-streamlit.txt` | Minimal deps for Streamlit Cloud |
+
+### Deploy Steps
+
+1. **Commit the SQLite database** (Streamlit Cloud has no persistent disk):
+   ```bash
+   git add -f data/processed/restaurants.sqlite
+   git commit -m "add restaurant catalog for Streamlit deployment"
+   git push
+   ```
+
+2. Go to [share.streamlit.io](https://share.streamlit.io) and sign in with GitHub.
+
+3. Create a new app:
+   - **Repository**: `sana1410/Nextleap_GenAI`
+   - **Branch**: `main`
+   - **Main file path**: `streamlit_app.py`
+   - **Requirements file**: `requirements-streamlit.txt`
+
+4. Add secrets via the Streamlit Cloud dashboard (Settings → Secrets):
+   ```toml
+   LLM_API_KEY = "your-groq-api-key-here"
+   ```
+   Leave `LLM_API_KEY` empty to run in heuristic-only mode (no Groq key needed).
+
+5. The app will be live at `https://<your-app>.streamlit.app`.
+
+### Run Locally
+
+```bash
+pip install -r requirements-streamlit.txt
+streamlit run streamlit_app.py
+```
+
+### Cost
+
+| Component | Platform | Cost |
+|-----------|----------|------|
+| App + Backend | Streamlit Community Cloud | Free |
+| LLM | Groq free tier | Free |
+| **Total** | | **$0/month** |
